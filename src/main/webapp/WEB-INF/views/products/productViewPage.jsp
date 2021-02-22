@@ -270,7 +270,7 @@
 					
 					<!-- QNA 만들기 -->
 					<!-- QNA -->
-					<div class="card-header">Q / A</div>
+					<div class="qna-header">Q / A</div>
 						<table class="qna-table">
 							<thead>
 								<tr>
