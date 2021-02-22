@@ -40,15 +40,9 @@ public class QnaListCommand implements QnaCommand {
 		// beginRecord + endRecord를 list를 가져오는 simpleList()에 전달합니다.
 		List<QnaDto> list = qnaDao.qnaList(beginRecord, endRecord);
 
-		// paging을 만듭니다.
-		// 아래 paging의 path는 List마다 다릅니다.
-		// SimpleListCommand : simpleListPage.do
-		// BoardListCommand : boardListPAge.do
-		// 검색결과의 페이징 : boardListPage.do?query=검색
-
 		String paging = Paging.getPaging("qnaListPage.do", totalRecord, recordPerPage, page);
 
-		model.addAttribute("list", list);
+		model.addAttribute("qnaList", list);
 
 		model.addAttribute("paging", paging);
 		model.addAttribute("totalRecord", totalRecord);

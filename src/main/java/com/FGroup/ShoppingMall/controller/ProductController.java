@@ -18,6 +18,7 @@ import com.FGroup.ShoppingMall.command.product.ProductCategoryCommand;
 import com.FGroup.ShoppingMall.command.product.ProductListCommand;
 import com.FGroup.ShoppingMall.command.product.ProductSearchCommand;
 import com.FGroup.ShoppingMall.command.product.ProductViewCommand;
+import com.FGroup.ShoppingMall.command.qna.QnaListCommand;
 import com.FGroup.ShoppingMall.command.review.ReviewListCommand;
 import com.FGroup.ShoppingMall.dto.ProductSearchDto;
 
@@ -31,16 +32,19 @@ public class ProductController {
 	private ProductViewCommand productViewCommand;
 	private ProductCategoryCommand productCategoryCommand;
 	private ReviewListCommand reviewListCommand;
+	private QnaListCommand qnaListCommand;
 
 	@Autowired
 	public void setCommand(ProductListCommand productListCommand,
 							ProductCategoryCommand productCategoryCommand,
 							ProductViewCommand productViewCommand,
-							ReviewListCommand reviewListCommand) {
+							ReviewListCommand reviewListCommand,
+							QnaListCommand qnaListCommand) {
 		this.productListCommand = productListCommand;
 		this.productViewCommand = productViewCommand;
 		this.productCategoryCommand = productCategoryCommand;
 		this.reviewListCommand = reviewListCommand;
+		this.qnaListCommand = qnaListCommand;
 	}
 
 	@RequestMapping(value = "shopGuide.do", method = RequestMethod.GET)
@@ -67,6 +71,7 @@ public class ProductController {
 		model.addAttribute("request", request);
 		productViewCommand.execute(sqlSession, model);
 		reviewListCommand.execute(sqlSession, model);
+		qnaListCommand.execute(sqlSession, model);
 		return "products/productViewPage";
 	}
 
@@ -80,7 +85,6 @@ public class ProductController {
 	@ResponseBody
 	public Map<String, Object> productSearch(@RequestBody ProductSearchDto productSearchDto, Model model) {
 		model.addAttribute("productSearchDto", productSearchDto);
-		// model.addAttribute("page", productSearchDto.getPage());
 		ProductSearchCommand productSearchCommand = new ProductSearchCommand();
 		return productSearchCommand.execute(sqlSession, model);
 	}

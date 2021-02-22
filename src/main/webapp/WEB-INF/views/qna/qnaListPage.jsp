@@ -57,13 +57,13 @@ a:hover {
 				</tr>
 			</thead>
 			<tbody>
-				<c:if test="${empty list}">
+				<c:if test="${empty qnaList}">
 					<tr>
 						<td style="text-align: center;" colspan="7">없음</td>
 					</tr>
 				</c:if>
-				<c:if test="${not empty list}">
-					<c:forEach var="qnaDto" items="${list}" varStatus="k">
+				<c:if test="${not empty qnaList}">
+					<c:forEach var="qnaDto" items="${qnaList}" varStatus="k">
 						<tr>
 							<td style="width: 5%">${totalRecord - ((page - 1) * recordPerPage + k.index)}</td>
 							<td style="width: 5%"><a href="productViewPage.do?p_No=${qnaDto.q_p_no}"><img style="width: 50px;" src="${qnaDto.p_Image}"></a></td>
@@ -89,7 +89,7 @@ a:hover {
 							</td>
 							<td style="width: 15%">${qnaDto.m_name}</td>
 							<td style="width: 10%">${qnaDto.q_date}</td>
-							<td style="width: 5%">${qnaDto.q_hit }</td>
+							<td style="width: 5%">${qnaDto.q_hit}</td>
 						</tr>
 						<input type="hidden" name="q_m_no" value="${loginDto.m_no}" />
 						<!-- 로그인한사람의 m_no  -->

@@ -82,6 +82,23 @@ h6 {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
+.qna-table {
+	width: 100%;
+}
+
+.qna-table>tbody>tr>td {
+	margin: 100px;
+	text-align: left;
+	padding: 20px 0px;
+}
+
+.qna-table>thead>tr>td {
+	margin: 100px;
+	text-align: left;
+	padding: 10px 0px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
 .getContent {
 	color: #616264;
 }

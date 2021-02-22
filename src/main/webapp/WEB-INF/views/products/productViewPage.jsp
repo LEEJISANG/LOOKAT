@@ -14,6 +14,8 @@
 			var text = $("select option:selected").text();
 			$('#p_No').val(p_No);
 		});
+	
+		
 		$('.getContent').on("click", function() {
 			var currentRow = $(this).closest('tr');
 			var detail = currentRow.next('tr');
@@ -180,7 +182,7 @@
 											<c:set var="ea" value="EA" />
 											<c:if test="${productDto.p_Amount ne 0}">
 												<option value="${productDto.p_No}">${productDto.p_Size} 남은재고:${productDto.p_Amount}</option>
-												<!--size 별로 재고수량 넣음  -->
+												<c:set var="max" value="${productDto.p_Amount}"/>
 											</c:if>
 											<c:if test="${productDto.p_Amount eq 0}">
 												<option value="out-of-stock">${productDto.p_Size} --품절</option>
@@ -195,7 +197,8 @@
 									<div>구입 수량</div>
 								</td>
 								<!-- max 값 남은재고 최대수량으로 변경해주기 -->
-								<td><input type="number" name="o_amount" id="o_amount" min="1" max="10" value="1" /></td>
+								<td><input type="number" name="o_amount" id="o_amount" min="1" max="10" value="1" /><br/>
+									</td>
 							</tr>
 							<tr class="btntr">
 								<td colspan="2">
@@ -229,17 +232,17 @@
 									<td>조회</td>
 								</tr>
 							</thead>
-							<c:set var="count" value="0" />
+							<c:set var="count" value="1" />
 							<c:if test="${not empty list}">
 								<c:forEach var="reviewDto" items="${list}" varStatus="k">
 									<c:forEach var="productDto" items="${prodViewlist}">
 										<c:if test="${reviewDto.rv_p_no eq productDto.p_No}">
 											<tr>
-												<c:set var="count" value="${k.count}" />
-												<td>${k.count}</td>
+												<td><c:out value="${count}"/></td>
 												<td><a href="javascript:void(0)" class="getContent">${reviewDto.rv_title}</a></td>
 												<td>${reviewDto.rv_regDate}</td>
 												<td>${reviewDto.rv_hit}</td>
+												<c:set var="count" value="${count + 1}" />
 											</tr>
 											<tr style="display: none;">
 												<td colspan="4">
@@ -268,17 +271,48 @@
 					<!-- QNA 만들기 -->
 					<!-- QNA -->
 					<div class="card-header">Q / A</div>
-					<div class="card-body">
-						<table>
-							<c:if test="${empty qnaList}">
-								작성된 질문이 없습니다.
-							</c:if>
+						<table class="qna-table">
+							<thead>
+								<tr>
+									<td>번호</td>
+									<td>제목</td>
+									<td>작성일</td>
+									<td>조회</td>
+								</tr>
+							</thead>
+							<c:set var="count" value="0" />
 							<c:if test="${not empty qnaList}">
-								<c:forEach var="qnaDto" items="${qnaList}" varStatus="k">
-									<p>asdfasdf</p>
-									<small class="text-muted">asdfasdf</small>
-									<hr>
+								<c:set var="count" value="1" />
+								<c:forEach var="qnaDto" items="${qnaList}" varStatus="p">
+									<c:forEach var="productDto" items="${prodViewlist}">
+										<c:if test="${qnaDto.q_p_no eq productDto.p_No}">
+											<tr>
+												
+												<td><c:out value="${count}"/></td>
+												<td><a href="javascript:void(0)" class="getContent">${qnaDto.q_title}</a></td>
+												<td>${qnaDto.q_date}</td>
+												<td>${qnaDto.q_hit}</td>
+												<c:set var="count" value="${count + 1}"/>
+											</tr>
+											<tr style="display: none;">
+												<td colspan="4">
+													<div>
+														<c:set var="uploadFileNames" value="${fn:split(qnaDto.q_filename,'^')}" />
+														<p>${qnaDto.q_content}</p>
+														<c:forEach var="uploadFileName" items="${uploadFileNames}">
+															<img style="width: 100px;" alt="${uploadFileName}" src="resources/storage/${uploadFileName}"><br /><br />
+														</c:forEach>
+													</div>
+												</td>
+											</tr>
+										</c:if>
+									</c:forEach>
 								</c:forEach>
+							</c:if>
+							<c:if test="${count eq 0}">
+								<tr>
+									<td colspan="4">작성된 리뷰가 없습니다.</td>
+								</tr>
 							</c:if>
 						</table>
 					</div>
@@ -287,7 +321,6 @@
 			</div>
 			<!-- /.col-lg-9 -->
 		</div>
-	</div>
 	<!-- /.container -->
 </form>
 
