@@ -58,6 +58,7 @@
 	
 	function fn_selectOrd(f) {
 		var chkList = document.getElementsByName("chk").length;
+		var amount = document.getElementById("crt_amount");
 		var target = '';
 		for (var i = 0; i < chkList; i++) {
 			if (document.getElementsByName("chk")[i].checked == true) {
@@ -66,16 +67,27 @@
 		}
 		if (target == '') {
 			alert('선택된 상품이 없습니다.');
-		} else if (target != '') {
+		} else {
+			if (parseInt(amount.value) > parseInt(amount.max)) {
+				alert('재고수량을 초과하였습니다.');
+			} else {
+				var target = 'all';
+				f.action = "order.do?target=" + target;
+				f.submit();
+			}
+		}
+	}
+	// <input type="number" name="crt_amount" id="crt_amount" min="1" max="${productDto.p_Amount}" value="${cartDto.crt_amount}" /> 
+
+	function fn_orderAll(f) {
+		var amount = document.getElementById("crt_amount");
+		if (parseInt(amount.value) > parseInt(amount.max)) {
+			alert('재고수량을 초과하였습니다.');
+		} else {
+			var target = 'all';
 			f.action = "order.do?target=" + target;
 			f.submit();
 		}
-	}
-	
-	function fn_orderAll(f) {
-		var target = 'all';
-		f.action = "order.do?target=" + target;
-		f.submit();
 	}
 </script>
 

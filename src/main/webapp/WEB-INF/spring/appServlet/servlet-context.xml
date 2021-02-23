@@ -29,12 +29,12 @@
 	<!-- command -->
 	
 	<!-- member -->
-	<beans:bean id="memberLoginURLCommand" 	class="com.FGroup.ShoppingMall.command.member.MemberLoginURLCommand" />
+	<beans:bean id="memberLoginURLCommand" class="com.FGroup.ShoppingMall.command.member.MemberLoginURLCommand" />
 	<beans:bean id="memberLoginCommand" class="com.FGroup.ShoppingMall.command.member.MemberLoginCommand" />
 	<beans:bean id="memberLogoutCommand" class="com.FGroup.ShoppingMall.command.member.MemberLogoutCommand" />
 	<beans:bean id="memberIdCheckCommand" class="com.FGroup.ShoppingMall.command.member.MemberIdCheckCommand" />
 	<beans:bean id="memberFindIdCommand" class="com.FGroup.ShoppingMall.command.member.MemberFindIdCommand" />
-	<beans:bean id="memberFindPasswordCommand" 	class="com.FGroup.ShoppingMall.command.member.MemberFindPasswordCommand" />
+	<beans:bean id="memberFindPasswordCommand" class="com.FGroup.ShoppingMall.command.member.MemberFindPasswordCommand" />
 	<beans:bean id="memberEmailAuthCommand" class="com.FGroup.ShoppingMall.command.member.MemberEmailAuthCommand" />
 	<beans:bean id="memberEmailAuthConfirmCommand" class="com.FGroup.ShoppingMall.command.member.MemberEmailAuthConfirmCommand" />
 	<beans:bean id="memberRegisterCommand" class="com.FGroup.ShoppingMall.command.member.MemberRegisterCommand" />
@@ -49,11 +49,11 @@
 	<beans:bean id="productSearchCommand" class="com.FGroup.ShoppingMall.command.product.ProductSearchCommand" />
 	
 	<!-- cart -->
-	<beans:bean id="cartInsertCommand" 	class="com.FGroup.ShoppingMall.command.cart.CartInsertCommand" />
+	<beans:bean id="cartInsertCommand" class="com.FGroup.ShoppingMall.command.cart.CartInsertCommand" />
 	<beans:bean id="cartListCommand" class="com.FGroup.ShoppingMall.command.cart.CartListCommand" />
-	<beans:bean id="cartDeleteCommand" 	class="com.FGroup.ShoppingMall.command.cart.CartDeleteCommand" />
+	<beans:bean id="cartDeleteCommand" class="com.FGroup.ShoppingMall.command.cart.CartDeleteCommand" />
 	<beans:bean id="cartCheckCommand" class="com.FGroup.ShoppingMall.command.cart.CartCheckCommand" />
-	<beans:bean id="cartUpdateCommand" 	class="com.FGroup.ShoppingMall.command.cart.CartUpdateCommand" />
+	<beans:bean id="cartUpdateCommand" class="com.FGroup.ShoppingMall.command.cart.CartUpdateCommand" />
 
 	<!-- order -->
 	<beans:bean id="orderDoCommand" class="com.FGroup.ShoppingMall.command.order.OrderDoCommand" />
@@ -61,11 +61,11 @@
 	<beans:bean id="orderListCommand" class="com.FGroup.ShoppingMall.command.order.OrderListCommand" />
 	<beans:bean id="orderViewCommand" class="com.FGroup.ShoppingMall.command.order.OrderViewCommand" />
 	<beans:bean id="orderDeleteCommand" class="com.FGroup.ShoppingMall.command.order.OrderDeleteCommand" />
-	<beans:bean id="orderCheckCommand" 	class="com.FGroup.ShoppingMall.command.order.OrderCheckCommand" />
+	<beans:bean id="orderCheckCommand" class="com.FGroup.ShoppingMall.command.order.OrderCheckCommand" />
 	
 	<!-- review -->
-	<beans:bean id="reviewListCommand" 	class="com.FGroup.ShoppingMall.command.review.ReviewListCommand" />
-	<beans:bean id="reviewViewCommand" 	class="com.FGroup.ShoppingMall.command.review.ReviewViewCommand" />
+	<beans:bean id="reviewListCommand" class="com.FGroup.ShoppingMall.command.review.ReviewListCommand" />
+	<beans:bean id="reviewViewCommand" class="com.FGroup.ShoppingMall.command.review.ReviewViewCommand" />
 	<beans:bean id="reviewInsertCommand" class="com.FGroup.ShoppingMall.command.review.ReviewInsertCommand" />
 	<beans:bean id="reviewDeleteCommand" class="com.FGroup.ShoppingMall.command.review.ReviewDeleteCommand" />
 	<beans:bean id="reviewUpdateCommand" class="com.FGroup.ShoppingMall.command.review.ReviewUpdateCommand" />

@@ -12,10 +12,30 @@
 			// 선택된 데이터의 텍스트값 가져오기
 			var p_No = $("select option:selected").val();
 			var text = $("select option:selected").text();
+			var amount_max = text.split(':');
+			var amount_val = document.getElementById("o_amount");
+			//var amount_val;
 			$('#p_No').val(p_No);
+			if (this.value > 0) {
+				if (amount_max[1] > 0) {
+					o_amount.max = amount_max[1];
+					amount_val.value = 1;
+					//document.getElementById("o_amount").value = 1;
+					//amount_val = document.getElementById("o_amount");
+				} else {
+					o_amount.max = 1;
+					amount_val.value = 1;
+					//document.getElementById("o_amount").value = 1;
+					//amount_val = document.getElementById("o_amount");
+				}
+			} else {
+				o_amount.max = 1;
+				amount_val.value = 1;
+				//document.getElementById("o_amount").value = 1;
+				//amount_val = document.getElementById("o_amount");
+			}
 		});
 	
-		
 		$('.getContent').on("click", function() {
 			var currentRow = $(this).closest('tr');
 			var detail = currentRow.next('tr');
@@ -28,6 +48,7 @@
 	});
 
 	function fn_order(f) {
+		var amount_val = document.getElementById("o_amount");
 		var p_No = $("select option:selected").val();
 		var m_no = $('#m_no').val();
 		var size = $('#std_Size').val();
@@ -39,6 +60,8 @@
 			alert('사이즈를 선택하세요.');
 		} else if (size == "out-of-stock") {
 			alert('해당 제품은 품절입니다.');
+		} else if (parseInt(o_amount.max) < parseInt(amount_val.value)) {
+			alert('재고수량을 초과하였습니다.');
 		} else {
 			$.ajax({
 				url : 'getText', //RequestMapping의 value 작성한다.
@@ -48,8 +71,7 @@
 				success : function(responseText) { //responseText: controller에게서 결과로 받아오는 값
 					if (responseText == 1) {
 						if (confirm('장바구니에 같은 상품이 담겨 있습니다. 지금 확인하시겠습니까?')) {
-							location.href = "cartListPage.do?m_no="
-									+ loginResult;
+							location.href = "cartListPage.do?m_no=" + loginResult;
 						} else {
 							f.action = "order.do";
 							f.submit();
@@ -59,14 +81,15 @@
 						f.submit();
 					}
 				},
-				error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+				error : function() {
+					alert('AJAX FAIL');
 				}
 			});
 		}
 	}
 
 	function fn_cart(f) {
+		var amount_val = document.getElementById("o_amount");
 		var p_No = $("select option:selected").val();
 		var size = $('#std_Size').val();
 		var loginResult = $('#m_no').val();
@@ -77,6 +100,8 @@
 			alert('사이즈를 선택하세요.');
 		} else if (size == "out-of-stock") {
 			alert('해당 제품은 품절입니다.');
+		} else if (parseInt(o_amount.max) < parseInt(amount_val.value)) {
+			alert('재고수량을 초과하였습니다.');
 		} else {
 			$.ajax({
 				url : 'getText', //RequestMapping의 value 작성한다.
@@ -93,19 +118,17 @@
 						f.submit();
 					}
 				},
-				error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+				error : function() {
+					alert('AJAX FAIL');
 				}
 			});
 		}
 	}
 </script>
 <form method="post">
-	<!-- Page Content -->
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
-				<!--    <h1 class="my-4">Shop Name</h1> -->
 				<div class="list-group">
 					<caption>기본 정보</caption>
 					<table border="1" summary="">
@@ -144,9 +167,9 @@
 								<td>
 									<span style="font-size: 12px; color: #000000;">
 										<strong id="span_product_price_text">
-											<c:forEach 	var="productDto" items="${prodViewlist}">
+											<c:forEach var="productDto" items="${prodViewlist}">
 												<c:if test="${productDto.p_Size eq 'S' or productDto.p_Size eq 'FREE'}">
-													₩<fmt:formatNumber value="${productDto.p_Price}" pattern="###,###,###" />
+													₩<fmt:formatNumber value="${productDto.p_Price}" 	pattern="###,###,###" />
 												</c:if>
 											</c:forEach>
 										</strong>
@@ -182,11 +205,9 @@
 											<c:set var="ea" value="EA" />
 											<c:if test="${productDto.p_Amount ne 0}">
 												<option value="${productDto.p_No}">${productDto.p_Size} 남은재고:${productDto.p_Amount}</option>
-												<c:set var="max" value="${productDto.p_Amount}"/>
 											</c:if>
 											<c:if test="${productDto.p_Amount eq 0}">
 												<option value="out-of-stock">${productDto.p_Size} --품절</option>
-												<%-- <span div="display-none" class="out-of-stuck">out-of-stuck</span> --%>
 											</c:if>
 										</c:forEach>
 									</select>
@@ -197,13 +218,11 @@
 									<div>구입 수량</div>
 								</td>
 								<!-- max 값 남은재고 최대수량으로 변경해주기 -->
-								<td><input type="number" name="o_amount" id="o_amount" min="1" max="10" value="1" /><br/>
-									</td>
+								<td><input type="number" name="o_amount" id="o_amount" min="1" max="1" value="1" /></td>
 							</tr>
 							<tr class="btntr">
 								<td colspan="2">
 									<input type="hidden" name="m_no" id="m_no" value="${loginDto.m_no}" />
-									<!--수정  -->
 									<input type="hidden" name="p_No" id="p_No" value="" /><br />
 									<input type="button" id="btndo" class="addCart_btn" value="카트에 담기" onclick="fn_cart(this.form)" />
 									<input type="button" id="btndo" value="구매하기" onclick="fn_order(this.form)" />
@@ -221,36 +240,38 @@
 							<img src="${productDto.p_Image}" alt="">
 						</c:if>
 					</c:forEach>
+
+					<!-- REVIEW -->
 					<div class="review">
 						<div class="review-header">Review</div>
 						<table class="review-table">
 							<thead>
 								<tr>
-									<td>번호</td>
-									<td>제목</td>
+									<td id="number">번호</td>
+									<td id="title">제목</td>
 									<td>작성일</td>
-									<td>조회</td>
+									<td id="number">조회</td>
 								</tr>
 							</thead>
-							<c:set var="count" value="1" />
+							<c:set var="count" value="0" />
 							<c:if test="${not empty list}">
 								<c:forEach var="reviewDto" items="${list}" varStatus="k">
 									<c:forEach var="productDto" items="${prodViewlist}">
 										<c:if test="${reviewDto.rv_p_no eq productDto.p_No}">
 											<tr>
-												<td><c:out value="${count}"/></td>
+												<td id="number"><c:out value="${count + 1}" /></td>
 												<td><a href="javascript:void(0)" class="getContent">${reviewDto.rv_title}</a></td>
 												<td>${reviewDto.rv_regDate}</td>
-												<td>${reviewDto.rv_hit}</td>
+												<td id="number">${reviewDto.rv_hit}</td>
 												<c:set var="count" value="${count + 1}" />
 											</tr>
 											<tr style="display: none;">
 												<td colspan="4">
-													<div>
+													<div id="imgs">
 														<c:set var="uploadFileNames" value="${fn:split(reviewDto.rv_filename,'^')}" />
 														<p>${reviewDto.rv_content}</p>
 														<c:forEach var="uploadFileName" items="${uploadFileNames}">
-															<img style="width: 100px;" alt="${uploadFileName}" src="resources/storage/${uploadFileName}"><br /><br />
+															<img style="width: 300px;" alt="${uploadFileName}" src="resources/storage/${uploadFileName}"><br /><br />
 														</c:forEach>
 													</div>
 												</td>
@@ -266,62 +287,57 @@
 							</c:if>
 						</table>
 					</div>
-					<!-- /.card -->
-					
-					<!-- QNA 만들기 -->
+					<!-- REVIEW END -->
+
 					<!-- QNA -->
 					<div class="qna-header">Q / A</div>
-						<table class="qna-table">
-							<thead>
-								<tr>
-									<td>번호</td>
-									<td>제목</td>
-									<td>작성일</td>
-									<td>조회</td>
-								</tr>
-							</thead>
-							<c:set var="count" value="0" />
-							<c:if test="${not empty qnaList}">
-								<c:set var="count" value="1" />
-								<c:forEach var="qnaDto" items="${qnaList}" varStatus="p">
-									<c:forEach var="productDto" items="${prodViewlist}">
-										<c:if test="${qnaDto.q_p_no eq productDto.p_No}">
-											<tr>
-												
-												<td><c:out value="${count}"/></td>
-												<td><a href="javascript:void(0)" class="getContent">${qnaDto.q_title}</a></td>
-												<td>${qnaDto.q_date}</td>
-												<td>${qnaDto.q_hit}</td>
-												<c:set var="count" value="${count + 1}"/>
-											</tr>
-											<tr style="display: none;">
-												<td colspan="4">
-													<div>
-														<c:set var="uploadFileNames" value="${fn:split(qnaDto.q_filename,'^')}" />
-														<p>${qnaDto.q_content}</p>
-														<c:forEach var="uploadFileName" items="${uploadFileNames}">
-															<img style="width: 100px;" alt="${uploadFileName}" src="resources/storage/${uploadFileName}"><br /><br />
-														</c:forEach>
-													</div>
-												</td>
-											</tr>
-										</c:if>
-									</c:forEach>
+					<table class="qna-table">
+						<thead>
+							<tr>
+								<td id="number">번호</td>
+								<td id="title">제목</td>
+								<td>작성일</td>
+								<td id="number">조회</td>
+							</tr>
+						</thead>
+						<c:set var="count" value="0" />
+						<c:if test="${not empty qnaList}">
+							<c:forEach var="qnaDto" items="${qnaList}" varStatus="p">
+								<c:forEach var="productDto" items="${prodViewlist}">
+									<c:if test="${qnaDto.q_p_no eq productDto.p_No}">
+										<tr>
+											<td id="number"><c:out value="${count + 1}" /></td>
+											<td><a href="javascript:void(0)" class="getContent">${qnaDto.q_title}</a></td>
+											<td>${qnaDto.q_date}</td>
+											<td id="number">${qnaDto.q_hit}</td>
+											<c:set var="count" value="${count + 1}" />
+										</tr>
+										<tr style="display: none;">
+											<td colspan="4">
+												<div id="imgs">
+													<c:set var="uploadFileNames" value="${fn:split(qnaDto.q_filename,'^')}" />
+													<p>${qnaDto.q_content}</p>
+													<c:forEach var="uploadFileName" items="${uploadFileNames}">
+														<img style="width: 300px;" alt="${uploadFileName}" src="resources/storage/${uploadFileName}"><br /><br />
+													</c:forEach>
+												</div>
+											</td>
+										</tr>
+									</c:if>
 								</c:forEach>
-							</c:if>
-							<c:if test="${count eq 0}">
-								<tr>
-									<td colspan="4">작성된 리뷰가 없습니다.</td>
-								</tr>
-							</c:if>
-						</table>
-					</div>
+							</c:forEach>
+						</c:if>
+						<c:if test="${count eq 0}">
+							<tr>
+								<td colspan="4">작성된 질문이 없습니다.</td>
+							</tr>
+						</c:if>
+					</table>
 				</div>
-				<!-- /.qna -->
+				<!-- QNA END -->
 			</div>
-			<!-- /.col-lg-9 -->
 		</div>
-	<!-- /.container -->
+	</div>
 </form>
 
 <%@ include file="../template/footer.jsp"%>

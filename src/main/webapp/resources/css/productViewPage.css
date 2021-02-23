@@ -72,14 +72,14 @@ h6 {
 .review-table>tbody>tr>td {
 	margin: 100px;
 	text-align: left;
-	padding: 20px 0px;
-	width: 200px;
+	padding: 20px 10px;
+	word-break: break-all;
 }
 
 .review-table>thead>tr>td {
 	margin: 100px;
 	text-align: left;
-	padding: 10px 0px;
+	padding: 20px 10px;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
@@ -95,21 +95,22 @@ h6 {
 .qna-table>tbody>tr>td {
 	margin: 100px;
 	text-align: left;
-	padding: 20px 0px;
+	padding: 20px 10px;
 	width: 200px;
+	word-break: break-all;
 }
 
 .qna-table>thead>tr>td {
 	margin: 100px;
 	text-align: left;
-	padding: 10px 0px;
+	padding: 20px 10px;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
-
 
 .review-table>tr>p {
 	padding-top: 200px;
 }
+
 .qna-table>tr>p {
 	padding-top: 200px;
 }
@@ -124,3 +125,15 @@ h6 {
 	font-weight: bold;
 }
 
+#title {
+	width: 330px;
+}
+
+#imgs {
+	width: 100%;
+}
+
+#number {
+	width: 150px;
+	text-align: center;
+}
