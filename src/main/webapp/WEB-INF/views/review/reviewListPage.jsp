@@ -65,7 +65,12 @@ a:hover {
 						<tr>
 							<td style="width: 5%">${totalRecord - ((page - 1) * recordPerPage + k.index)}</td>
 							<td style="width: 5%"><a href="productViewPage.do?p_No=${reviewDto.rv_p_no}"><img style="width: 50px;" src="${reviewDto.p_Image}"></a></td>
-							<td style="width: 10%"><span style="font-size: 12px;"><a href="productViewPage.do?p_No=${reviewDto.rv_p_no}">${reviewDto.p_Name}&nbsp;[${reviewDto.p_Color}]</a></span></td>
+							<c:if test="${reviewDto.rv_p_no ne 0}">
+								<td style="width: 10%"><span style="font-size: 12px;"><a href="productViewPage.do?p_No=${reviewDto.rv_p_no}">${reviewDto.p_Name}&nbsp;[${reviewDto.p_Color}]</a></span></td>
+							</c:if>
+							<c:if test="${reviewDto.rv_p_no eq 0}">
+								<td style="width: 5%"></td>
+							</c:if>
 							<td style="width: 50%"><a href="reviewViewPage.do?rv_no=${reviewDto.rv_no}&page=${page}">${reviewDto.rv_title}</a></td>
 							<td style="width: 15%">${reviewDto.m_name}</td>
 							<td style="width: 10%">${reviewDto.rv_regDate}</td>

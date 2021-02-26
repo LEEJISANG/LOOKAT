@@ -48,8 +48,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="register">
 		INSERT INTO
-	   MEMBERS (M_NO, M_ID, M_PW, M_NAME, M_PHONE, M_EMAIL, M_COUPON, M_POINT, M_GRADE, M_REGDATE)
-		VALUES (MEMBERS_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+	   MEMBERS (M_ID, M_PW, M_NAME, M_PHONE, M_EMAIL, M_COUPON, M_POINT, M_GRADE, M_REGDATE)
+		VALUES (#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
 	</insert>
 	
 	<update id="changePassword" parameterType="com.FGroup.ShoppingMall.dto.MemberDto" >

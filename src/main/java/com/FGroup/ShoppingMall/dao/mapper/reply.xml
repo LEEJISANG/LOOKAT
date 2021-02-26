@@ -15,15 +15,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="replyInsert" parameterType="com.FGroup.ShoppingMall.dto.ReplyDto">
 		INSERT INTO
-		 REPLY (R_NO, R_WRITER,  R_CONTENT, R_DATE, R_N_NO, R_EDITDATE, R_M_NO, R_DELETE, R_GROUP, R_GROUPORD, R_DEPTH)
-		VALUES (REPLY_SEQ.NEXTVAL, #{param1}, #{param2}, SYSDATE, #{param3}, SYSDATE, #{param4}, 0, REPLY_SEQ.CURRVAL, 0, 0)
+		 REPLY (R_WRITER,  R_CONTENT, R_DATE, R_N_NO, R_EDITDATE, R_M_NO, R_DELETE, R_GROUP, R_GROUPORD, R_DEPTH)
+		VALUES (#{param1}, #{param2}, NOW(), #{param3}, NOW(), #{param4}, 0, 
+			   (SELECT R_CURRVAL 
+			   	  FROM (SELECT MAX(R_NO) AS R_CURRVAL 
+			   	  		  FROM REPLY) AS R) + 1, 0, 0)
 	</insert>
 	
 	<!-- 대댓글 -->
 	<insert id="rereplyInsert" parameterType="com.FGroup.ShoppingMall.dto.ReplyDto">
 		INSERT INTO
-		 REPLY (R_NO, R_WRITER, R_CONTENT, R_DATE, R_N_NO, R_EDITDATE, R_M_NO, R_DELETE, R_GROUP, R_GROUPORD, R_DEPTH)
-		VALUES (REPLY_SEQ.NEXTVAL, #{param1}, #{param2}, SYSDATE, #{param3}, SYSDATE, #{param4}, 0, #{param6}, #{param7}, #{param8})
+		 REPLY (R_WRITER, R_CONTENT, R_DATE, R_N_NO, R_EDITDATE, R_M_NO, R_DELETE, R_GROUP, R_GROUPORD, R_DEPTH)
+		VALUES (#{param1}, #{param2}, NOW(), #{param3}, NOW(), #{param4}, 0, #{param6}, #{param7}, #{param8})
 	</insert>
 	
 	<update id="replyUpdatebGroupOrd" parameterType="map">

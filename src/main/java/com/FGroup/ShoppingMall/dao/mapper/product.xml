@@ -8,14 +8,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="productReview" parameterType="int" resultType="com.FGroup.ShoppingMall.dto.ReviewDto">
 		SELECT B.*
-		  FROM (SELECT ROWNUM AS RN, A.*
+		  FROM (SELECT @ROWNUM := @ROWNUM + 1 AS RN, A.*
 				  FROM (SELECT N.*, M.M_NAME, P.*
 						  FROM REVIEWS N,
 						       MEMBERS M,
 						       PRODUCT P
 						 WHERE N.RV_M_NO = M.M_NO
 						   AND N.RV_P_NO = P.P_NO
-					  ORDER BY N.RV_NO DESC) A ) B
+					  ORDER BY N.RV_NO DESC) A, (SELECT @ROWNUM := 0) RN2) B
 		 WHERE B.RN BETWEEN #{param1} AND #{param2}
 	</select>
 	
@@ -52,23 +52,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchPage" resultType="com.FGroup.ShoppingMall.dto.ProductDto">
 		SELECT *
 		  FROM PRODUCT
-		 WHERE P_CATEGORY LIKE '%' || #{search} || '%'
-			OR P_NAME LIKE '%' || #{search} || '%'
-			OR P_NO LIKE '%' || #{search} || '%'
-			OR P_COLOR LIKE '%' || #{search} || '%'
+		 WHERE P_CATEGORY LIKE CONCAT('%',#{search},'%')
+			OR P_NAME LIKE CONCAT('%',#{search},'%')
+			OR P_NO LIKE CONCAT('%',#{search},'%')
+			OR P_COLOR LIKE CONCAT('%',#{search},'%')
 	</select>
 
 	<select id="productSearch" parameterType="com.FGroup.ShoppingMall.dto.ProductSearchDto" resultType="com.FGroup.ShoppingMall.dto.ProductSearchDto">
 		SELECT B.*
-		  FROM (SELECT A.*, ROWNUM AS RN
+		  FROM (SELECT A.*, @ROWNUM := @ROWNUM + 1 AS RN
 				  FROM (SELECT *
 						  FROM PRODUCT
-						 WHERE UPPER(P_CATEGORY) LIKE UPPER('%' || #{p_Category} || '%')
+						 WHERE UPPER(P_CATEGORY) LIKE UPPER(CONCAT('%',#{p_Category},'%'))
 						<if test="search_type =='p_No'">
 						   AND UPPER(${search_type}) = UPPER(#{search})
 						</if>
 						<if test="search_type !='p_No'">
-						   AND UPPER(${search_type}) LIKE UPPER('%' || #{search} || '%')
+						   AND UPPER(${search_type}) LIKE UPPER(CONCAT('%',#{search},'%'))
 						</if>
 						   AND P_SIZE = 'S'
 						   AND P_PRICE BETWEEN #{p_Price1} AND #{p_Price2}
@@ -77,7 +77,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					  	<when test="order_by=='p_Regdate'">P_REGDATE DESC</when>
 					  	<when test="order_by=='p_Name'">P_NAME ASC</when>
 					  </choose>
-					  ) A) B
+					  ) A, (SELECT @ROWNUM := 0) RN2) B
 		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 
@@ -85,12 +85,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchCount" parameterType="com.FGroup.ShoppingMall.dto.ProductSearchDto" resultType="int">
 		SELECT COUNT(*)
 		  FROM PRODUCT
-		 WHERE UPPER(P_CATEGORY) LIKE UPPER('%' || #{p_Category} || '%')
+		 WHERE UPPER(P_CATEGORY) LIKE UPPER(CONCAT('%',#{p_Category},'%'))
 		<if test="search_type =='p_No'">
 		   AND UPPER(${search_type}) = UPPER(#{search})
 		</if>
 		<if test="search_type !='p_No'">
-		   AND UPPER(${search_type}) LIKE UPPER('%' || #{search} || '%')
+		   AND UPPER(${search_type}) LIKE UPPER(CONCAT('%',#{search},'%'))
 		   AND P_SIZE = 'S'
 		</if>
 		   AND P_PRICE BETWEEN #{p_Price1} and #{p_Price2}

@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="memberList" resultType="com.FGroup.ShoppingMall.dto.MemberDto">
 		SELECT *
 		  FROM MEMBERS
-		 WHERE ${param1} LIKE '%' || #{param2} || '%'
+		 WHERE ${param1} LIKE CONCAT('%',#{param2},'%')
 	</select>
 
 	<update id="memberMGUpdate" parameterType="com.FGroup.ShoppingMall.dto.MemberDto">

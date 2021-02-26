@@ -12,11 +12,11 @@ ORDER BY N.N_NO DESC -->
 	<!-- 전체 게시물 보기 -->
 	<select id="noticeList" resultType="com.FGroup.ShoppingMall.dto.NoticeDto">
 		SELECT B.*
-		  FROM (SELECT ROWNUM AS RN, A.*
+		  FROM (SELECT @ROWNUM := @ROWNUM + 1 AS RN, A.*
 				  FROM (SELECT N.*, M.M_NAME
 						  FROM NOTICE N, MEMBERS M
 						 WHERE N.N_M_NO = M.M_NO
-					  ORDER BY N.N_NO DESC) A ) B
+					  ORDER BY N.N_NO DESC) A, (SELECT @ROWNUM := 0) RN2) B
 		WHERE B.RN BETWEEN #{param1} AND #{param2}
 	</select>
 
@@ -37,8 +37,8 @@ ORDER BY N.N_NO DESC -->
 	<!-- 게시물 작성 -->
 	<insert id="noticeInsert">
 		INSERT INTO
-		NOTICE (N_NO, N_TITLE, N_M_NO, N_CONTENT, N_DATE, N_HIT, N_FILENAME)
-		VALUES (NOTICE_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, SYSDATE, 0, #{param4})
+		NOTICE (N_TITLE, N_M_NO, N_CONTENT, N_DATE, N_HIT, N_FILENAME)
+		VALUES (#{param1}, #{param2}, #{param3}, NOW(), 0, #{param4})
 	</insert>
 
 	<!-- 게시물 번호 -->
@@ -74,13 +74,13 @@ ORDER BY N.N_NO DESC -->
 	<!-- 게시물 검색 -->
 	<select id="queryNoticeList" parameterType="Map" resultType="com.FGroup.ShoppingMall.dto.NoticeDto">
 		SELECT B.*
-		  FROM (SELECT ROWNUM AS RN, A.*
+		  FROM (SELECT @ROWNUM := @ROWNUM + 1 AS RN, A.*
 				  FROM (SELECT N.*, M.M_NAME
 						  FROM NOTICE N, MEMBERS M
 						 WHERE N.N_M_NO = M.M_NO
-						   AND <if test="column!='BOTH'">${column} LIKE '%' || #{query} || '%'</if>
-						       <if test="column=='BOTH'">(N_TITLE LIKE '%' || #{query} || '%' OR N_CONTENT LIKE '%' || #{query} || '%')</if>
-					  ORDER BY N.N_NO DESC) A) B
+						   AND <if test="column!='BOTH'">${column} LIKE CONCAT('%',#{query},'%')</if>
+						       <if test="column=='BOTH'">(N_TITLE LIKE CONCAT('%',#{query},'%') OR N_CONTENT LIKE CONCAT('%',#{query},'%'))</if>
+					  ORDER BY N.N_NO DESC) A, (SELECT @ROWNUM := 0) RN2) B
 		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 
@@ -89,8 +89,8 @@ ORDER BY N.N_NO DESC -->
 		SELECT COUNT(*)
 		  FROM NOTICE N, MEMBERS M
 		 WHERE N.N_M_NO = M.M_NO
-		   AND <if test="column!='BOTH'">${column} LIKE '%' || #{query} || '%'</if>
-		       <if test="column=='BOTH'">(N_TITLE LIKE '%' || #{query} || '%' OR N_CONTENT LIKE '%' || #{query} || '%')</if>
+		   AND <if test="column!='BOTH'">${column} LIKE CONCAT('%',#{query},'%')</if>
+		       <if test="column=='BOTH'">(N_TITLE LIKE CONCAT('%',#{query},'%') OR N_CONTENT LIKE CONCAT('%',#{query},'%'))</if>
 	</select>
 	
 </mapper>

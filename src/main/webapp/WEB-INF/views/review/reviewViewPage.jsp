@@ -155,25 +155,30 @@ img {
 
 <div id="viewContainer">
 	<form method="post">
-		<table class="productInfoTable">
-			<tbody>
-				<tr>
-					<td style="width: 5%" rowspan="2"><img style="width: 80px;" src="${reviewDto.p_Image}"></td>
-					<td style="height: 80%; border-bottom: 1px solid lightgrey;">
-						${reviewDto.p_Name}[${reviewDto.p_Color}]<br />
-						&#8361;<fmt:formatNumber pattern="#,##0">${reviewDto.p_Price }</fmt:formatNumber>
-					</td>
-					<td style="width: 2%"></td>
-				</tr>
-				<tr>
-					<td>
-						<input type="button" class="viewPageBtn" value="상품 상세보기" onclick="location.href='productViewPage.do?p_No=${reviewDto.rv_p_no}'">
-					</td>
-					<td></td>
-				</tr>
-			</tbody>
-		</table>
-		<br />
+		<c:if test="${reviewDto.rv_p_no ne 0}">
+			<table class="productInfoTable">
+				<tbody>
+					<tr>
+						<td style="width: 5%" rowspan="2"><img style="width: 80px;" src="${reviewDto.p_Image}"></td>
+						<td style="height: 80%; border-bottom: 1px solid lightgrey;">
+							${reviewDto.p_Name}[${reviewDto.p_Color}]<br />
+							&#8361;<fmt:formatNumber pattern="#,##0">${reviewDto.p_Price }</fmt:formatNumber>
+						</td>
+						<td style="height: 80%; border-bottom: 1px solid lightgrey;">
+							<br /><br />
+						</td>
+						<td style="width: 2%"></td>
+					</tr>
+					<tr>
+						<td>
+							<input type="button" class="viewPageBtn" value="상품 상세보기" onclick="location.href='productViewPage.do?p_No=${reviewDto.rv_p_no}'">
+						</td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			<br />
+		</c:if>
 
 		<table class="reviewTable">
 			<tbody>

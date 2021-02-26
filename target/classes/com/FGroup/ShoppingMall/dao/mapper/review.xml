@@ -12,12 +12,12 @@ ORDER BY N.RV_NO DESC -->
 	<!-- 전체 게시물 보기 -->
 	<select id="reviewList" resultType="com.FGroup.ShoppingMall.dto.ReviewDto">
 		SELECT B.*
-		  FROM (SELECT ROWNUM AS RN, A.*
+		  FROM (SELECT @ROWNUM := @ROWNUM + 1 AS RN, A.*
 		  		FROM (SELECT N.*, M.M_NAME, P.*
 		  			    FROM REVIEWS N, MEMBERS M, PRODUCT P
 		  			   WHERE N.RV_M_NO = M.M_NO
 		  			     AND N.RV_P_NO = P.P_NO
-		  			ORDER BY N.RV_NO DESC) A ) B
+		  			ORDER BY N.RV_NO DESC) A, (SELECT @ROWNUM := 0) RN2) B
 		 WHERE B.RN BETWEEN #{param1} AND #{param2}
 	</select>
 	
@@ -39,8 +39,8 @@ ORDER BY N.RV_NO DESC -->
 	<!-- 게시물 작성 -->
 	<insert id="reviewInsert">
 		INSERT INTO
-	   REVIEWS (RV_NO, RV_TITLE, RV_CONTENT, RV_REGDATE, RV_HIT, RV_FILENAME, RV_M_NO, RV_P_NO)
-	  	VALUES (REVIEWS_SEQ.NEXTVAL, #{param1}, #{param3}, SYSDATE, 0, #{param4}, #{param2}, #{param5})	
+	   REVIEWS (RV_TITLE, RV_CONTENT, RV_REGDATE, RV_HIT, RV_FILENAME, RV_M_NO, RV_P_NO)
+	  	VALUES (#{param1}, #{param3}, NOW(), 0, #{param4}, #{param2}, #{param5})	
 	</insert>
 	
 	<!-- 게시물 번호 -->
@@ -74,14 +74,14 @@ ORDER BY N.RV_NO DESC -->
     <!-- 게시물 검색 -->
     <select id="queryReviewList" parameterType="Map" resultType="com.FGroup.ShoppingMall.dto.ReviewDto">
 		SELECT B.*
-		  FROM (SELECT ROWNUM AS RN, A.*
+		  FROM (SELECT @ROWNUM := @ROWNUM + 1 AS RN, A.*
 		  		  FROM (SELECT N.*, M.M_NAME, P.*
 		  			      FROM REVIEWS N, MEMBERS M, PRODUCT P
 		  		   		 WHERE N.RV_M_NO = M.M_NO 
 		  		   		   AND N.RV_P_NO = P.P_NO
-		  		   		   AND <if test="column!='BOTH'">${column} LIKE '%' || #{query} || '%'</if>
-		       				   <if test="column=='BOTH'">(RV_TITLE LIKE '%' || #{query} || '%' OR RV_CONTENT LIKE '%' || #{query} || '%')</if>
-		  		   	  ORDER BY N.RV_NO DESC) A) B
+		  		   		   AND <if test="column!='BOTH'">${column} LIKE CONCAT('%',#{query},'%')</if>
+		       				   <if test="column=='BOTH'">(RV_TITLE LIKE CONCAT('%',#{query},'%') OR RV_CONTENT LIKE CONCAT('%',#{query},'%'))</if>
+		  		   	  ORDER BY N.RV_NO DESC) A, (SELECT @ROWNUM := 0) RN2) B
 		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
     
@@ -91,8 +91,8 @@ ORDER BY N.RV_NO DESC -->
 		  FROM REVIEWS N, MEMBERS M, PRODUCT P
 		 WHERE N.RV_M_NO = M.M_NO
 		   AND N.RV_P_NO = P.P_NO
-		   AND <if test="column!='BOTH'">${column} LIKE '%' || #{query} || '%'</if>
-		       <if test="column=='BOTH'">(RV_TITLE LIKE '%' || #{query} || '%' OR RV_CONTENT LIKE '%' || #{query} || '%')</if>
+		   AND <if test="column!='BOTH'">${column} LIKE CONCAT('%',#{query},'%')</if>
+		       <if test="column=='BOTH'">(RV_TITLE LIKE CONCAT('%',#{query},'%') OR RV_CONTENT LIKE CONCAT('%',#{query},'%'))</if>
 	</select>
 	
 </mapper>

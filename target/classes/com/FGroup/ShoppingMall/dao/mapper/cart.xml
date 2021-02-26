@@ -8,8 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="cartInsert">
 		INSERT INTO
-		  CART (CRT_NO, CRT_M_NO, CRT_P_NO, CRT_AMOUNT)
-		VALUES (CART_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3})
+		  CART (CRT_M_NO, CRT_P_NO, CRT_AMOUNT)
+		VALUES (#{param1}, #{param2}, #{param3})
 	</insert>
 
 	<select id="totalRecord" resultType="int">
@@ -20,11 +20,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="cartList" resultType="com.FGroup.ShoppingMall.dto.CartDto">
 		SELECT B.*
-		  FROM (SELECT ROWNUM AS RN, A.*
+		  FROM (SELECT @ROWNUM := @ROWNUM + 1 AS RN, A.*
 				  FROM (SELECT *
 						  FROM CART
 						 WHERE CRT_M_NO = #{param1}
-					  ORDER BY CRT_NO DESC) A) B
+					  ORDER BY CRT_NO DESC) A, (SELECT @ROWNUM := 0) RN2) B
 		WHERE B.RN BETWEEN #{param2} AND #{param3}
 	</select>
 

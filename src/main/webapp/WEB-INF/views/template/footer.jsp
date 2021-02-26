@@ -53,12 +53,12 @@
 	</div>
 	<div id="rightFooterContainer">
 		<span id="rightFooterText">
-			<input type="button" class="footerBtn" value="Shop Guide" /><br />
-			Company : Lookat(룩앳) Ceo : 윤세한 윤진주 이지상 임화경 김동욱 조재익 Tel : 010-1234-1234<br />
-			Address : 서울특별시 마포구 서강로 136 아이비티워 2층,3층 E-mail : lookatspring@gmail.com<br />
-			copyright © 2021 Lookat. All rights reserved. [Operator information]
+		   이지상 leejisang314@naver.com<br />
+		   윤진주 jjyoun48@gmail.com<br />
+		   윤세한 yunshll@naver.com<br />
+		   조재익 wowodlr21@gmail.com<br />   
 		</span>
-	</div>
+   </div>
 </footer>
 </body>
 </html>
