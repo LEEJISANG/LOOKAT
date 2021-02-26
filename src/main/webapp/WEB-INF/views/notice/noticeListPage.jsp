@@ -86,7 +86,7 @@ a:hover {
 			<tbody>
 				<c:if test="${empty list}">
 					<tr>
-						<td colspan="5">없음</td>
+						<td style="text-align: center;" colspan="5">없음</td>
 					</tr>
 				</c:if>
 				<c:if test="${not empty list}">
