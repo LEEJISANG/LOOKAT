@@ -18,7 +18,8 @@ public class MemberLoginURLCommand implements MemberCommand {
 		HttpSession session = request.getSession();
 
 		String before_url = request.getHeader("referer");
-
+		
+		// localhost version
 		if (before_url.equals("http://localhost:9090/ShoppingMall/loginPage.do")
 				|| before_url.equals("http://localhost:9090/ShoppingMall/findIdPage.do")
 				|| before_url.equals("http://localhost:9090/ShoppingMall/findPasswordPage.do")
@@ -27,6 +28,16 @@ public class MemberLoginURLCommand implements MemberCommand {
 			session.setAttribute("referer", before_url);
 			System.out.println("로그인 전 페이지: " + before_url);
 		}
+		
+		// domain version
+//		if (before_url.equals("http://ching21.cafe24.com/loginPage.do")
+//				|| before_url.equals("http://ching21.cafe24.com/findIdPage.do")
+//				|| before_url.equals("http://ching21.cafe24.com/findPasswordPage.do")
+//				|| before_url.equals("http://ching21.cafe24.com/signUpPage.do")) {
+//		} else {
+//			session.setAttribute("referer", before_url);
+//			System.out.println("로그인 전 페이지: " + before_url);
+//		}
 
 		return null;
 
