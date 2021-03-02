@@ -261,10 +261,12 @@ img {
 										<span style="font-weight: 700; font-size: 16px;">${replyDto.r_writer}</span>&nbsp;&nbsp;&nbsp;<span style="color: grey; font-size: 10px;">${replyDto.r_date}</span>
 										<input type="checkbox" id="replyToggle" name="replyToggle${replyDto.r_no}" value="${replyDto.r_no}">
 										<input type="checkbox" id="rereplyToggle" name="rereplyToggle${replyDto.r_no}" value="${replyDto.r_no}">
-										<c:if test="${loginDto.m_no == replyDto.r_m_no}">
+										<c:if test="${loginDto ne null}">
 											<button type="button" class="replyBtn" name="rereplyBtn" id="edit2Btn${replyDto.r_no}" value="답글">
 												<i class="far fa-comment-dots"></i>
 											</button>
+										</c:if>
+										<c:if test="${loginDto.m_no eq replyDto.r_m_no}">
 											<button type="button" class="replyBtn" name="updateBtn" id="editBtn${replyDto.r_no}" value="수정">
 												<i class="fas fa-wrench"></i>
 											</button>

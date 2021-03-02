@@ -9,8 +9,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT *
 		  FROM REPLY
 		 WHERE R_N_NO = #{r_n_no}
-	  ORDER BY R_GROUP DESC,
-			   R_GROUPORD ASC
+	  ORDER BY R_GROUP ASC,
+	  		   R_GROUPORD ASC
 	</select>
 	
 	<insert id="replyInsert" parameterType="com.FGroup.ShoppingMall.dto.ReplyDto">
