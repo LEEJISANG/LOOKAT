@@ -13,11 +13,11 @@ ORDER BY N.RV_NO DESC -->
 	<select id="reviewList" resultType="com.FGroup.ShoppingMall.dto.ReviewDto">
 		SELECT B.*
 		  FROM (SELECT @ROWNUM := @ROWNUM + 1 AS RN, A.*
-		  		FROM (SELECT N.*, M.M_NAME, P.*
-		  			    FROM REVIEWS N, MEMBERS M, PRODUCT P
-		  			   WHERE N.RV_M_NO = M.M_NO
-		  			     AND N.RV_P_NO = P.P_NO
-		  			ORDER BY N.RV_NO DESC) A, (SELECT @ROWNUM := 0) RN2) B
+		  		  FROM (SELECT N.*, M.M_NAME, P.*
+		  		  		  FROM REVIEWS N, MEMBERS M, PRODUCT P
+		  		  		 WHERE N.RV_M_NO = M.M_NO
+		  		  		   AND N.RV_P_NO = P.P_NO) A, (SELECT @ROWNUM := 0) RN2
+		  	  ORDER BY A.RV_NO DESC) B
 		 WHERE B.RN BETWEEN #{param1} AND #{param2}
 	</select>
 	
@@ -80,8 +80,8 @@ ORDER BY N.RV_NO DESC -->
 		  		   		 WHERE N.RV_M_NO = M.M_NO 
 		  		   		   AND N.RV_P_NO = P.P_NO
 		  		   		   AND <if test="column!='BOTH'">${column} LIKE CONCAT('%',#{query},'%')</if>
-		       				   <if test="column=='BOTH'">(RV_TITLE LIKE CONCAT('%',#{query},'%') OR RV_CONTENT LIKE CONCAT('%',#{query},'%'))</if>
-		  		   	  ORDER BY N.RV_NO DESC) A, (SELECT @ROWNUM := 0) RN2) B
+		       				   <if test="column=='BOTH'">(RV_TITLE LIKE CONCAT('%',#{query},'%') OR RV_CONTENT LIKE CONCAT('%',#{query},'%'))</if>) A, (SELECT @ROWNUM := 0) RN2
+			  ORDER BY A.RV_NO DESC) B
 		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
     

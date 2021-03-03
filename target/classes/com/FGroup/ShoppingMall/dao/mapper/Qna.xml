@@ -13,11 +13,11 @@ ORDER BY N.Q_NO DESC -->
 	<select id="qnaList" resultType="com.FGroup.ShoppingMall.dto.QnaDto">
 		SELECT B.*
 		  FROM (SELECT @ROWNUM := @ROWNUM + 1 AS RN, A.*
-		  		FROM (SELECT N.*, M.M_NAME, P.*
-		  			    FROM QNA N, MEMBERS M, PRODUCT P
-		  			   WHERE N.Q_M_NO = M.M_NO
-		  			  	 AND N.Q_P_NO = P.P_NO
-		  			ORDER BY N.Q_NO DESC) A, (SELECT @ROWNUM := 0) RN2) B
+		  		  FROM (SELECT N.*, M.M_NAME, P.*
+		  		  		  FROM QNA N, MEMBERS M, PRODUCT P
+						 WHERE N.Q_M_NO = M.M_NO
+						   AND N.Q_P_NO = P.P_NO) A, (SELECT @ROWNUM := 0) RN2
+			  ORDER BY A.Q_NO DESC) B
 		 WHERE B.RN BETWEEN #{param1} AND #{param2}
 	</select>
 	
@@ -88,8 +88,8 @@ ORDER BY N.Q_NO DESC -->
 		  		   		 WHERE N.Q_M_NO = M.M_NO 
 		  		   		   AND N.Q_P_NO = P.P_NO
 		  		   		   AND <if test="column!='BOTH'">${column} LIKE CONCAT('%',#{query},'%')</if>
-		       				   <if test="column=='BOTH'">(Q_TITLE LIKE CONCAT('%',#{query},'%') OR Q_CONTENT LIKE CONCAT('%',#{query},'%'))</if>
-		  		   	  ORDER BY N.Q_NO DESC) A, (SELECT @ROWNUM := 0) RN2) B
+		       				   <if test="column=='BOTH'">(Q_TITLE LIKE CONCAT('%',#{query},'%') OR Q_CONTENT LIKE CONCAT('%',#{query},'%'))</if>) A, (SELECT @ROWNUM := 0) RN2
+			  ORDER BY A.Q_NO DESC) B
 		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
     

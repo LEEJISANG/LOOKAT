@@ -15,8 +15,8 @@ ORDER BY N.N_NO DESC -->
 		  FROM (SELECT @ROWNUM := @ROWNUM + 1 AS RN, A.*
 				  FROM (SELECT N.*, M.M_NAME
 						  FROM NOTICE N, MEMBERS M
-						 WHERE N.N_M_NO = M.M_NO
-					  ORDER BY N.N_NO DESC) A, (SELECT @ROWNUM := 0) RN2) B
+						 WHERE N.N_M_NO = M.M_NO) A, (SELECT @ROWNUM := 0) RN2
+			  ORDER BY A.N_NO DESC) B
 		WHERE B.RN BETWEEN #{param1} AND #{param2}
 	</select>
 
@@ -79,8 +79,8 @@ ORDER BY N.N_NO DESC -->
 						  FROM NOTICE N, MEMBERS M
 						 WHERE N.N_M_NO = M.M_NO
 						   AND <if test="column!='BOTH'">${column} LIKE CONCAT('%',#{query},'%')</if>
-						       <if test="column=='BOTH'">(N_TITLE LIKE CONCAT('%',#{query},'%') OR N_CONTENT LIKE CONCAT('%',#{query},'%'))</if>
-					  ORDER BY N.N_NO DESC) A, (SELECT @ROWNUM := 0) RN2) B
+						       <if test="column=='BOTH'">(N_TITLE LIKE CONCAT('%',#{query},'%') OR N_CONTENT LIKE CONCAT('%',#{query},'%'))</if>) A, (SELECT @ROWNUM := 0) RN2
+			  ORDER BY A.N_NO DESC) B
 		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 

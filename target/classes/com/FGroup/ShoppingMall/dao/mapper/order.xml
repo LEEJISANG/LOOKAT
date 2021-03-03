@@ -68,8 +68,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						 WHERE O_M_NO = #{param1}
 						   AND O_NO IN (SELECT MAX(O_NO)
 										  FROM ORDERS
-									  GROUP BY O_IDX))A, (SELECT @ROWNUM := 0) RN2
-					  ORDER BY O_NO DESC)B
+									  GROUP BY O_IDX)) A, (SELECT @ROWNUM := 0) RN2
+			  ORDER BY A.O_NO DESC) B
 		 WHERE B.RN BETWEEN #{param2} AND #{param3}
 	</select>
 	

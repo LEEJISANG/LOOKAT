@@ -14,8 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						       MEMBERS M,
 						       PRODUCT P
 						 WHERE N.RV_M_NO = M.M_NO
-						   AND N.RV_P_NO = P.P_NO
-					  ORDER BY N.RV_NO DESC) A, (SELECT @ROWNUM := 0) RN2) B
+						   AND N.RV_P_NO = P.P_NO) A, (SELECT @ROWNUM := 0) RN2
+			  ORDER BY A.RV_NO DESC) B
 		 WHERE B.RN BETWEEN #{param1} AND #{param2}
 	</select>
 	
@@ -71,13 +71,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						   AND UPPER(${search_type}) LIKE UPPER(CONCAT('%',#{search},'%'))
 						</if>
 						   AND P_SIZE = 'S'
-						   AND P_PRICE BETWEEN #{p_Price1} AND #{p_Price2}
-					  ORDER BY
-					  <choose>
-					  	<when test="order_by=='p_Regdate'">P_REGDATE DESC</when>
-					  	<when test="order_by=='p_Name'">P_NAME ASC</when>
-					  </choose>
-					  ) A, (SELECT @ROWNUM := 0) RN2) B
+						   AND P_PRICE BETWEEN #{p_Price1} AND #{p_Price2}) A, (SELECT @ROWNUM := 0) RN2
+			  ORDER BY
+			<choose>
+				<when test="order_by=='p_Regdate'">A.P_REGDATE DESC</when>
+				<when test="order_by=='p_Name'">A.P_NAME ASC</when>
+			</choose>) B
 		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 
