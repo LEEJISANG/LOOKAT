@@ -2,7 +2,7 @@
 Spring MVC 모델을 이용한 쇼핑몰 사이트 구현 [![lookat](img/logo_black.png){: width="20" height="10"}](http://ching21.cafe24.com/){: target="_blank"}
 ## :small_orange_diamond:프로젝트 정보
 
-[![lookat](img/lookat.png)](http://ching21.cafe24.com/){:target="_blank"}
+[![lookat](img/lookat.png)](http://ching21.cafe24.com/){: target="_blank"}
 
 - 한줄소개 : 대중적인 쇼핑몰 사이트 입니다. &nbsp;
 - 수행기간 : 2021/01/22 ~ 2021/02/18 (4주)
