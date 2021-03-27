@@ -1,5 +1,5 @@
 # :large_orange_diamond:LOOKAT 쇼핑몰 사이트
-Spring MVC 모델을 이용한 쇼핑몰 사이트 구현 [![lookat](img/logo_black.png){: width="20" height="10"}](http://ching21.cafe24.com/){: target="_blank"}
+Spring MVC 모델을 이용한 쇼핑몰 사이트 구현 [![lookat](img/logo_black.png){: width="110" height="40"}](http://ching21.cafe24.com/){: target="_blank"}
 ## :small_orange_diamond:프로젝트 정보
 
 [![lookat](img/lookat.png)](http://ching21.cafe24.com/){: target="_blank"}
