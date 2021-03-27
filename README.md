@@ -2,7 +2,7 @@
 
 ## :small_orange_diamond:프로젝트 정보
 
-![lookat](img/lookat.png)
+[![lookat](img/lookat.png)](http://ching21.cafe24.com/)
 <a href="http://ching21.cafe24.com/">
   <img src="img/lookat.png" alt="lookat" target="_blank" />
 </a>
