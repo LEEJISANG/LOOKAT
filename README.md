@@ -8,7 +8,7 @@ Spring MVC 모델을 이용한 쇼핑몰 사이트 구현
     <li>수행 기간 : 2021/01/22 ~ 2021/02/18 (4주)</li>
     <li>
         개발 환경 :
-        <p align="center">
+        <p>
             <img src="https://img.shields.io/badge/-Spring-green?logo=Spring&logoColor=white&style=for-the-badge"/>&nbsp;
             <img src="https://img.shields.io/badge/-Java-008C8C?logo=Java&logoColor=white&style=for-the-badge"/>&nbsp;
             <img src="https://img.shields.io/badge/-JavaScript-yellow?logo=JavaScript&logoColor=white&style=for-the-badge"/>&nbsp;
