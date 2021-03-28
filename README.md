@@ -7,8 +7,7 @@ Spring MVC 모델을 이용한 쇼핑몰 사이트 구현
     <li>한 줄 소개 : 대중적인 쇼핑몰 사이트입니다.</li>
     <li>수행 기간 : 2021/01/22 ~ 2021/02/18 (4주)</li>
     <li>
-        개발 환경 : <br />
-        <img src="https://img.shields.io/badge/-Spring-green?logo=Spring&logoColor=white&style=for-the-badge"/>&nbsp;
+        개발 환경 : <img src="https://img.shields.io/badge/-Spring-green?logo=Spring&logoColor=white&style=for-the-badge"/>&nbsp;
         <img src="https://img.shields.io/badge/-Java-008C8C?logo=Java&logoColor=white&style=for-the-badge"/>&nbsp;
         <img src="https://img.shields.io/badge/-JavaScript-yellow?logo=JavaScript&logoColor=white&style=for-the-badge"/>&nbsp;
         <img src="https://img.shields.io/badge/-jQuery-0078FF?logo=jQuery&logoColor=white&style=for-the-badge"/>&nbsp;
@@ -19,6 +18,6 @@ Spring MVC 모델을 이용한 쇼핑몰 사이트 구현
         <img src="https://img.shields.io/badge/-MySQL-orange?logo=MySQL&logoColor=white&style=for-the-badge"/>
     </li>
     <li>담당 역할 : 페이지(로그인, 회원가입, 회원, 관리자) DB 및 서버 구축, 유지 및 보수</li>
-    <li>Site Link : <http://ching21.cafe24.com/></li>
+    <li>Site Link : http://ching21.cafe24.com/</li>
     <li>Portfolio : </li>
 </ul>
