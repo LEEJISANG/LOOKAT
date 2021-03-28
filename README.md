@@ -21,6 +21,6 @@ Spring MVC 모델을 이용한 쇼핑몰 사이트 구현
         </p>
     </li>
     <li>담당 역할 : 페이지(로그인, 회원가입, 회원, 관리자) DB 및 서버 구축, 유지 및 보수</li>
-    <li>Site Link : http://ching21.cafe24.com/</li>
-    <li>Portfolio : https://www.notion.so/LOOKAT-ec5e3ec9d2624501b9f395990f13fa38</li>
+    <li><a href="http://ching21.cafe24.com/">Site Link</a></li>
+    <li><a href="https://www.notion.so/LOOKAT-ec5e3ec9d2624501b9f395990f13fa38">Portfolio</a></li>
 </ul>
