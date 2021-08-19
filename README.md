@@ -1,8 +1,8 @@
-# :large_orange_diamond:<a href="http://ching21.cafe24.com/" target="_blank" ><img src="img/logo_black.png" width="120" height="40" /></a> 쇼핑몰 사이트 
+# :large_orange_diamond:<a href="http://jiddang.cafe24.com/" target="_blank" ><img src="img/logo_black.png" width="120" height="40" /></a> 쇼핑몰 사이트 
 Spring MVC 모델을 이용한 쇼핑몰 사이트 구현 
 <br /><br />
 ## :small_orange_diamond:프로젝트 정보
-[![lookat](img/lookat.png)](http://ching21.cafe24.com/)
+[![lookat](img/lookat.png)](http://jiddang.cafe24.com/)
 <ul>
     <li>한 줄 소개 : 대중적인 쇼핑몰 사이트입니다.</li>
     <li>수행 기간 : 2021/01/22 ~ 2021/02/18 (4주)</li>
