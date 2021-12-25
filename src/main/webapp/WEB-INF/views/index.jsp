@@ -322,13 +322,13 @@ header {
 		<!-- 중앙 900x350 배너 -->
 		<div class="carousel-inner" role="listbox">
 			<div class="carousel-item active">
-				<img class="d-block img-fluid" src="https://i.esdrop.com/d/LidOKVTOmt.jpg" alt="First slide">
+				<img class="d-block img-fluid" src="resources/storage/main01.jpg" alt="First slide">
 			</div>
 			<div class="carousel-item">
-				<img class="d-block img-fluid" src="https://i.esdrop.com/d/F04fbsYHAd.jpg" alt="Second slide">
+				<img class="d-block img-fluid" src="resources/storage/main02.jpg" alt="Second slide">
 			</div>
 			<div class="carousel-item">
-				<img class="d-block img-fluid" src="https://i.esdrop.com/d/ddk2lEN8f0.jpg" alt="Third slide">
+				<img class="d-block img-fluid" src="resources/storage/main03.jpg" alt="Third slide">
 			</div>
 		</div>
 		<!-- 중앙 900x350 배너 화살표 -->
